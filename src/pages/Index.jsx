@@ -1,6 +1,10 @@
 import { Box, Flex, Input, Button, Text, Switch, FormControl, FormLabel, VStack } from "@chakra-ui/react";
 
 const Index = () => {
+  const handleSendMessage = (event) => {
+    event.preventDefault();
+    console.log("Message sent");
+  };
   return (
     <Flex direction={{ base: "column", md: "row" }} height="100vh">
       <Box flex="1" p="4" overflowY="auto">
@@ -16,8 +20,12 @@ const Index = () => {
               <Text fontSize="md">I'm good, thanks for asking!</Text>
             </Box>
           </Flex>
-          <Flex as="form" width="100%">
-            <Input placeholder="Type a message..." mr="2" />
+          <Flex as="form" width="100%" onSubmit={handleSendMessage}>
+            <Input placeholder="Type a message..." mr="2" onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                handleSendMessage(event);
+              }
+            }} />
             <Button colorScheme="blue">Send</Button>
           </Flex>
         </VStack>
